@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert';
 
-const html = readFileSync(new URL('index.html', import.meta.url), 'utf8');
+const html = readFileSync(new URL('public/index.html', import.meta.url), 'utf8');
 const all = (re) => [...html.matchAll(re)].map((m) => m[1]);
 const views = all(/data-view="([^"]*)"/g);
 const dialogs = all(/<dialog id="([^"]+)"/g);
