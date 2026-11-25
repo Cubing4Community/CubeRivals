@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CubeRivals</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main">
+      <a href="#/">CubeRivals</a>
+      <a href="#/dashboard">Dashboard</a>
+      <a href="#/play">Play</a>
+      <a href="#/leaderboard">Leaderboard</a>
+      <a href="#/profile">Profile</a>
+      <button data-open="pair">Connect cube</button>
+      <button data-open="auth">Log in</button>
+    </nav>
+  </header>
+
+  <main>
+    <section data-view="" data-title="Home">
+      <h1 tabindex="-1">Race real cubes, head to head.</h1>
+      <p>Ranked 1v1 speedcubing for Bluetooth smart cubes.</p>
+      <div class="actions"><button class="primary" data-open="pair">Connect smart cube</button><a href="#/dashboard">Go to dashboard</a></div>
+      <div class="grid">
+        <div class="card"><h2>1. Connect</h2><p>Pair your cube over Bluetooth.</p></div>
+        <div class="card"><h2>2. Match</h2><p>Find a rival near your rating.</p></div>
+        <div class="card"><h2>3. Solve</h2><p>Same scramble. Fastest time wins.</p></div>
+      </div>
+    </section>
+
+    <section data-view="dashboard" data-title="Dashboard" hidden>
+      <h1 tabindex="-1">Dashboard</h1>
+      <div class="actions"><a class="primary" href="#/play">Ranked 1v1</a><a href="#/play">Casual Quick Play</a></div>
+      <div class="grid">
+        <div class="card"><h2>Rating</h2><p class="big">—</p></div>
+        <div class="card"><h2>Best single</h2><p class="big">—</p></div>
+        <div class="card"><h2>Win rate</h2><p class="big">—</p></div>
+        <div class="card"><h2>Cube</h2><p>Not connected</p></div>
+      </div>
+    </section>
+
+    <section data-view="play" data-title="Matchmaking" hidden>
+      <h1 tabindex="-1">Matchmaking</h1>
+      <div class="grid"><div class="card"><h2>Looking for a rival…</h2><p>Preview only. No real matchmaking yet.</p>
+        <div class="actions"><button class="primary" data-open="vs">Simulate match found</button><a href="#/dashboard">Cancel</a></div></div></div>
+    </section>
+
+    <section data-view="arena" data-title="1v1 Arena" hidden>
+      <h1 tabindex="-1">1v1 Arena</h1>
+      <p>Scramble: —</p>
+      <div class="grid">
+        <div class="card"><h2>You</h2><p class="big">0.00</p></div>
+        <div class="card"><h2>Rival</h2><p class="big">0.00</p></div>
+      </div>
+      <div class="actions"><button class="primary" data-open="result">Finish match</button></div>
+    </section>
+
+    <section data-view="leaderboard" data-title="Leaderboard" hidden>
+      <h1 tabindex="-1">Leaderboard</h1>
+      <div class="grid"><div class="card scroll"><table><thead><tr><th>Rank</th><th>Player</th><th>Tier</th><th>Rating</th></tr></thead><tbody><tr><td colspan="4">No ranked players yet</td></tr></tbody></table></div></div>
+    </section>
+
+    <section data-view="profile" data-title="Profile" hidden>
+      <h1 tabindex="-1">Profile and Smart Cube Manager</h1>
+      <div class="grid">
+        <div class="card"><h2>Player</h2><p>Not logged in</p></div>
+        <div class="card"><h2>Records</h2><p>No solves yet</p></div>
+        <div class="card"><h2>Smart cube</h2><p>Not connected</p><button data-open="pair">Manage cube</button></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="pair" aria-label="Connect smart cube">
+    <div data-step><h2>1. Scan</h2><button data-next>Scan</button></div>
+    <div data-step hidden><h2>2. Device list</h2><button data-next>Choose device</button></div>
+    <div data-step hidden><h2>3. Handshake</h2><button data-next>Finish handshake</button></div>
+    <div data-step hidden><h2>4. Connected</h2><a href="#/dashboard">Go to dashboard</a></div>
+    <form method="dialog"><button>Close</button></form>
+  </dialog>
+
+  <dialog id="auth" aria-label="Log in or sign up">
+    <h2>Log in / Sign up</h2>
+    <a href="#/dashboard">Continue to dashboard</a>
+    <form method="dialog"><button>Close</button></form>
+  </dialog>
+
+  <dialog id="vs" aria-label="Match found">
+    <h2>Match found</h2>
+    <form method="dialog"><button>Cancel</button></form>
+  </dialog>
+
+  <dialog id="result" aria-label="Match result">
+    <h2>Match result</h2>
+    <a href="#/play">Rematch</a>
+    <a href="#/dashboard">Dashboard</a>
+    <a href="#/leaderboard">Leaderboard</a>
+    <a href="#/profile">Profile</a>
+    <form method="dialog"><button>Close</button></form>
+  </dialog>
+</body>
+</html>
