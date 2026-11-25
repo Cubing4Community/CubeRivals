@@ -16,7 +16,7 @@ function route(focus) {
     if (a.hash === `#/${view.dataset.view}`) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
-  document.title = `${view.dataset.title} · CubeRivals`;
+  document.title = `${view.dataset.title} · CubeUp`;
   if (focus) view.querySelector('h1').focus();
 }
 
