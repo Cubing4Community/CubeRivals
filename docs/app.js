@@ -6,6 +6,24 @@ const steps = [...document.querySelectorAll('[data-step]')];
 const showStep = (n) => steps.forEach((s, i) => { s.hidden = i !== n; });
 let vsTimer;
 
+// Loaded on demand so navigation still works if the CDN is unreachable.
+// shortcut: each browser makes its own scramble; real 1v1 needs a server to send one to both.
+let scrambleId = 0;
+async function newScramble() {
+  const id = ++scrambleId;
+  const out = document.getElementById('scramble');
+  out.textContent = 'Generating…';
+  let text;
+  try {
+    const { randomScrambleForEvent } = await import('https://cdn.cubing.net/v0/js/cubing/scramble');
+    text = (await randomScrambleForEvent('333')).toString();
+  } catch (err) {
+    console.error(err);
+    text = 'Could not generate. Check your connection and reload the page.';
+  }
+  if (id === scrambleId) out.textContent = text;
+}
+
 function route(focus) {
   // Read the hash and use the first view as a fallback.
   const name = location.hash.replace(/^#\/?/, '');
@@ -18,6 +36,7 @@ function route(focus) {
   });
   document.title = `${view.dataset.title} · CubeUp`;
   if (focus) view.querySelector('h1').focus();
+  if (view.dataset.view === 'arena') newScramble();
 }
 
 document.addEventListener('click', (e) => {
