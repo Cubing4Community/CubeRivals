@@ -1,9 +1,5 @@
-// Cache views and setup steps for page and dialog navigation.
+// Cache views for page and dialog navigation.
 const views = [...document.querySelectorAll('[data-view]')];
-const steps = [...document.querySelectorAll('[data-step]')];
-
-// Show only the requested setup step.
-const showStep = (n) => steps.forEach((s, i) => { s.hidden = i !== n; });
 let vsTimer;
 
 // Loaded on demand so navigation still works if the CDN is unreachable.
@@ -43,16 +39,9 @@ document.addEventListener('click', (e) => {
   const opener = e.target.closest('[data-open]');
   if (opener) {
     const id = opener.dataset.open;
-    if (id === 'pair') showStep(0);
     document.getElementById(id).showModal();
     // VS splash moves to the arena after 2.5s unless it is closed first.
     if (id === 'vs') vsTimer = setTimeout(() => { location.hash = '#/arena'; }, 2500);
-  }
-  const next = e.target.closest('[data-next]');
-  if (next) {
-    const n = steps.indexOf(next.closest('[data-step]')) + 1;
-    showStep(n);
-    steps[n].querySelector('button, a').focus();
   }
   // A link to the current page fires no hashchange, so close its dialog here.
   const link = e.target.closest('dialog a');
