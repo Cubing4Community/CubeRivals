@@ -43,3 +43,9 @@ th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--gre
 dialog { width: min(420px, 100% - 32px); padding: 24px; background: rgb(255 255 255 / .92); color: var(--ink); }
 dialog::backdrop { background: #1c2a3266; backdrop-filter: blur(4px); }
 dialog form { margin-top: 16px; text-align: right; }
+label { display: block; margin-bottom: 4px; }
+input { width: 100%; font: inherit; padding: 9px 12px; border: 1px solid var(--steel); border-radius: 10px; }
+#cube-form { text-align: left; margin-top: 0; }
+summary { cursor: pointer; color: var(--deep); margin-bottom: 8px; }
+ul { padding-left: 20px; color: var(--soft); }
+code { overflow-wrap: anywhere; }

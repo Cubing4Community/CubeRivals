@@ -6,6 +6,7 @@
   <title>CubeUp</title>
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="app.js"></script>
+  <script type="module" src="gan.js"></script>
 </head>
 <body>
   <header>
@@ -39,7 +40,7 @@
         <div class="card"><h2>Rating</h2><p class="big">—</p></div>
         <div class="card"><h2>Best single</h2><p class="big">—</p></div>
         <div class="card"><h2>Win rate</h2><p class="big">—</p></div>
-        <div class="card"><h2>Cube</h2><p>Not connected</p></div>
+        <div class="card"><h2>Cube</h2><p data-cube-status>Not connected</p></div>
       </div>
     </section>
 
@@ -69,16 +70,32 @@
       <div class="grid">
         <div class="card"><h2>Player</h2><p>Not logged in</p></div>
         <div class="card"><h2>Records</h2><p>No solves yet</p></div>
-        <div class="card"><h2>Smart cube</h2><p>Not connected</p><button data-open="pair">Manage cube</button></div>
+        <div class="card"><h2>Smart cube</h2><p data-cube-status>Not connected</p><button data-open="pair">Manage cube</button></div>
       </div>
     </section>
   </main>
 
   <dialog id="pair" aria-label="Connect smart cube">
-    <div data-step><h2>1. Scan</h2><button data-next>Scan</button></div>
-    <div data-step hidden><h2>2. Device list</h2><button data-next>Choose device</button></div>
-    <div data-step hidden><h2>3. Handshake</h2><button data-next>Finish handshake</button></div>
-    <div data-step hidden><h2>4. Connected</h2><a href="#/dashboard">Go to dashboard</a></div>
+    <h2>Connect GAN cube</h2>
+    <form id="cube-form">
+      <label for="cube-mac">MAC address (leave empty to try automatically)</label>
+      <input id="cube-mac" autocomplete="off" spellcheck="false" placeholder="AB:12:34:56:78:9A">
+      <div class="actions"><button id="cube-connect" class="primary">Connect</button></div>
+    </form>
+    <p role="status" id="cube-message"></p>
+    <details>
+      <summary>How do I find my MAC address?</summary>
+      <p>Turn your cube to wake it, and disconnect it from any other app or device. Then use one of these:</p>
+      <ul>
+        <li><strong>Chrome or Edge (computer):</strong> type <code>chrome://bluetooth-internals/#devices</code> in the address bar, start a scan and find your cube's name.</li>
+        <li><strong>Android:</strong> scan with a Bluetooth scanner app such as nRF Connect.</li>
+        <li><strong>Linux:</strong> run <code>bluetoothctl --timeout 15 scan on</code> in a terminal.</li>
+      </ul>
+      <p>The name usually starts with GAN, MG or AiCube. The address looks like AB:12:34:56:78:9A. iPhones, iPads and Macs usually hide it.</p>
+    </details>
+    <p>Status: <span data-cube-status>Not connected</span><br>
+      Battery: <span id="cube-battery">—</span><br>
+      Last moves: <span id="cube-moves">—</span></p>
     <form method="dialog"><button>Close</button></form>
   </dialog>
 
